@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+    "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+
+    <!-- Form Bean Definitions -->
+    <form-beans>
+        <form-bean name="loginForm" type="com.banking.struts.form.LoginForm"/>
+        <form-bean name="accountForm" type="com.banking.struts.form.AccountForm"/>
+        <form-bean name="transferForm" type="com.banking.struts.form.TransferForm"/>
+        <form-bean name="customerForm" type="com.banking.struts.form.CustomerForm"/>
+    </form-beans>
+
+    <!-- Global Forwards -->
+    <global-forwards>
+        <forward name="welcome" path="/jsp/welcome.jsp"/>
+        <forward name="login" path="/jsp/login.jsp"/>
+        <forward name="error" path="/jsp/error.jsp"/>
+    </global-forwards>
+
+    <!-- Action Mappings -->
+    <action-mappings>
+        
+        <!-- Login Action -->
+        <action path="/login"
+                type="com.banking.struts.action.LoginAction"
+                name="loginForm"
+                scope="request"
+                validate="true"
+                input="/jsp/login.jsp">
+            <forward name="success" path="/jsp/dashboard.jsp"/>
+            <forward name="failure" path="/jsp/login.jsp"/>
+        </action>
+
+        <!-- Logout Action -->
+        <action path="/logout"
+                type="com.banking.struts.action.LogoutAction">
+            <forward name="success" path="/jsp/login.jsp"/>
+        </action>
+
+        <!-- View Account Action -->
+        <action path="/viewAccount"
+                type="com.banking.struts.action.ViewAccountAction"
+                name="accountForm"
+                scope="request">
+            <forward name="success" path="/jsp/accountDetails.jsp"/>
+            <forward name="failure" path="/jsp/error.jsp"/>
+        </action>
+
+        <!-- Create Account Action -->
+        <action path="/createAccount"
+                type="com.banking.struts.action.CreateAccountAction"
+                name="accountForm"
+                scope="request"
+                validate="true"
+                input="/jsp/createAccount.jsp">
+            <forward name="success" path="/jsp/accountSuccess.jsp"/>
+            <forward name="failure" path="/jsp/createAccount.jsp"/>
+        </action>
+
+        <!-- List Accounts Action -->
+        <action path="/listAccounts"
+                type="com.banking.struts.action.ListAccountsAction"
+                scope="request">
+            <forward name="success" path="/jsp/accountList.jsp"/>
+            <forward name="failure" path="/jsp/error.jsp"/>
+        </action>
+
+        <!-- Transfer Funds Action -->
+        <action path="/transferFunds"
+                type="com.banking.struts.action.TransferFundsAction"
+                name="transferForm"
+                scope="request"
+                validate="true"
+                input="/jsp/transfer.jsp">
+            <forward name="success" path="/jsp/transferSuccess.jsp"/>
+            <forward name="failure" path="/jsp/transfer.jsp"/>
+        </action>
+
+        <!-- Deposit Action -->
+        <action path="/deposit"
+                type="com.banking.struts.action.DepositAction"
+                name="accountForm"
+                scope="request"
+                validate="true"
+                input="/jsp/deposit.jsp">
+            <forward name="success" path="/jsp/transactionSuccess.jsp"/>
+            <forward name="failure" path="/jsp/deposit.jsp"/>
+        </action>
+
+        <!-- Withdraw Action -->
+        <action path="/withdraw"
+                type="com.banking.struts.action.WithdrawAction"
+                name="accountForm"
+                scope="request"
+                validate="true"
+                input="/jsp/withdraw.jsp">
+            <forward name="success" path="/jsp/transactionSuccess.jsp"/>
+            <forward name="failure" path="/jsp/withdraw.jsp"/>
+        </action>
+
+        <!-- Customer Registration Action -->
+        <action path="/registerCustomer"
+                type="com.banking.struts.action.RegisterCustomerAction"
+                name="customerForm"
+                scope="request"
+                validate="true"
+                input="/jsp/register.jsp">
+            <forward name="success" path="/jsp/registrationSuccess.jsp"/>
+            <forward name="failure" path="/jsp/register.jsp"/>
+        </action>
+
+    </action-mappings>
+
+    <!-- Message Resources -->
+    <message-resources parameter="ApplicationResources"/>
+
+    <!-- Plug-ins Configuration -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames" 
+                      value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+    </plug-in>
+
+</struts-config>
+
+<!-- Made with Bob -->
